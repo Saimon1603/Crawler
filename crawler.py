@@ -1,13 +1,13 @@
 import openpyxl
 
 
-workbook = openpyxl.load_workbook('SCC-RoadsAndParking-Variances.xlsx')
-workbook2 = openpyxl.Workbook()
+workbook = openpyxl.load_workbook('Clientes.xlsx') # Nome da planilha a ser verificada
+workbook2 = openpyxl.Workbook() # Ativa uma planilha em branco
 
 sheet1 = workbook.active
 sheet2 = workbook2.active
 _max=200000
-ic=3
+ic=2 #Onde o scraping vai comçar a pegar os dados no caso 2° Linha
 lines=[]
 files=[]
 defs_ln=[]
@@ -18,35 +18,34 @@ lista = []
 
 ic2=2
 
-sheet2['A1']='Question'
-sheet2['B1']='Answer'
-sheet2['C1']='Action'
-sheet2['D1']='Sign'
+#Nomes a serem colocados na planilha
+sheet2['A1']='Nome'
+#sheet2['B1']='Data de Nascimento'
+#sheet2['C1']='CPF'
 utt=[]
 
 while ic < _max:
   #print 'Process utterences:',str(ic)
   #print workbook.get_sheet_names()
   #w==============
-  ask1=sheet1['B'+str(ic)].value
-  sign=sheet1['C'+str(ic)].value
-  response=sheet1['G'+str(ic)].value
-  action = sheet1['H' + str(ic)].value
-  ask2 = sheet1['F' + str(ic)].value
-  if ask1== None:
+  #campos a serem coletados
+  nome=sheet1['A'+str(ic)].value
+ # data=sheet1['B'+str(ic)].value
+ # cpf=sheet1['C'+str(ic)].value
+  if nome== None:
         break
-  if ask1.replace(' ','')=='':
+  if nome.replace(' ','')=='':
         break
-  if ask1 in utt:
-    ask1=ask2
+  if nome in utt:
+    nome=nome2
   else:
-   utt.append(ask1)
-  sheet2['A' + str(ic2)].value = ask1
-  sheet2['B' + str(ic2)].value = response
-  sheet2['C' + str(ic2)].value = action
-  sheet2['D' + str(ic2)].value = sign
+   utt.append(nome)
+  #Onde vai ser colocado os dados e seus respectivos campos
+  sheet2['A' + str(ic2)].value = nome
+#  sheet2['B' + str(ic2)].value = data
+#  sheet2['C' + str(ic2)].value = cpf
   #
   ic += 1
   ic2 += 1
 
-workbook2.save('SCC-RoadsAndParking-VariancesDONE.xlsx')
+workbook2.save('Planilha nova.xlsx') #salva a nova planilha com os campos desejados
