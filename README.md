@@ -1,4 +1,4 @@
-# Crawler
+# Crawler - manipulação de planilha excel.
 
 Ele funciona da seguinte forma, existe um campo que você deve alterar o nome e colocar o nome -
 de sua planilha.
